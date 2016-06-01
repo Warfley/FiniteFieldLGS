@@ -1,0 +1,76 @@
+object StepView: TStepView
+  Left = 200
+  Height = 290
+  Top = 200
+  Width = 541
+  Caption = 'Schritte'
+  ClientHeight = 290
+  ClientWidth = 541
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '1.7'
+  Visible = False
+  object Panel1: TPanel
+    Left = 0
+    Height = 42
+    Top = 248
+    Width = 541
+    Align = alBottom
+    BevelOuter = bvSpace
+    ClientHeight = 42
+    ClientWidth = 541
+    TabOrder = 0
+    object Button5: TButton
+      Left = 32
+      Height = 32
+      Top = 8
+      Width = 32
+      Caption = '>'
+      OnClick = Button5Click
+      TabOrder = 0
+    end
+    object Button1: TButton
+      Left = 0
+      Height = 32
+      Top = 8
+      Width = 32
+      Caption = '<'
+      OnClick = Button1Click
+      TabOrder = 1
+    end
+    object Button4: TButton
+      Left = 455
+      Height = 32
+      Top = 8
+      Width = 86
+      Anchors = [akTop, akRight]
+      Caption = 'Einfügen'
+      OnClick = Button4Click
+      TabOrder = 2
+    end
+  end
+  object StringGrid1: TStringGrid
+    Left = 0
+    Height = 198
+    Top = 50
+    Width = 541
+    Align = alClient
+    AlternateColor = 6579455
+    ColCount = 0
+    FixedCols = 0
+    FixedRows = 0
+    Options = [goVertLine, goHorzLine, goRangeSelect, goEditing, goSmoothScroll]
+    RowCount = 0
+    TabOrder = 1
+    OnDrawCell = StringGrid1DrawCell
+  end
+  object Panel2: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 541
+    Align = alTop
+    Caption = 'Panel2'
+    TabOrder = 2
+  end
+end
