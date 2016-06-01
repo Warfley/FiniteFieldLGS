@@ -34,7 +34,7 @@ type
       aRect: TRect; aState: TGridDrawState);
   private
 procedure SortDaShit(l: TLGS);
-function CalcDaShit(r1, r2: TRow; c, k, j: cardinal; l: TLGS): TRow;
+function CalcDaShit(r1, r2: TRow; c, k, j: cardinal; out s: String): TRow;
 procedure DoGauss(var l: TLGS; c: cardinal);
 procedure insert(l: TLGS);
     { private declarations }
@@ -120,7 +120,7 @@ begin
   QuickSort(l.Rows, low(l.Rows), High(l.Rows));
 end;
 
-function TLGSSolver.CalcDaShit(r1, r2: TRow; c, k, j: cardinal; l: TLGS): TRow;
+function TLGSSolver.CalcDaShit(r1, r2: TRow; c, k, j: cardinal; out s: String): TRow;
 var
   f1, f2, i: integer;
 begin
@@ -135,20 +135,25 @@ begin
   for i := 0 to Length(r1.Colums) - 1 do
     Result.Colums[i] := ModDaShit((r1.Colums[i] * f2 - r2.Colums[i] * f1), c);
         if StepBox.Checked then
-          StepView.AddStep(l, Format('Reihe %d wird zu Reihe %d * %d - Reihe %d * %d', [j, k, f2, j, f1]));
+          s:=Format('Reihe %d wird zu Reihe %d * %d - Reihe %d * %d', [j, k, f2, j, f1]);
 end;
 
 procedure TLGSSolver.DoGauss(var l: TLGS; c: cardinal);
 var
   i, j: integer;
+  s: String;
 begin
   SortDaShit(l);
   for i := 0 to l.M - 1 do
   begin
     for j := i + 1 to l.M - 1 do
       if l.Rows[i].Leading0 = l.Rows[j].Leading0 then
-        l.Rows[j] := CalcDaShit(l.Rows[i], l.Rows[j], c, i, j, l)
-			else
+      begin
+        l.Rows[j] := CalcDaShit(l.Rows[i], l.Rows[j], c, i, j, s);
+        if StepBox.Checked then
+          StepView.AddStep(l, s);
+      end
+      else
         break;
     SortDaShit(l);
         if StepBox.Checked then

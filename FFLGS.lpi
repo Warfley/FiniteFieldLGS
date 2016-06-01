@@ -56,7 +56,7 @@
         <CompilerOptions>
           <Version Value="11"/>
           <Target>
-            <Filename Value="FFLGS"/>
+            <Filename Value="Release/$(TargetCPU)-$(TargetOS)/FFLGS"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -101,12 +101,11 @@
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="InputForm.pas"/>
+        <Filename Value="inputform.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="LGSSolver"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="inputform"/>
       </Unit1>
       <Unit2>
         <Filename Value="stepsolution.pas"/>
