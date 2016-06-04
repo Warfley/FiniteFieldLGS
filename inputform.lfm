@@ -6,7 +6,7 @@ object LGSSolver: TLGSSolver
   Caption = 'LGS Rechner'
   ClientHeight = 336
   ClientWidth = 574
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '1.7'
   Visible = False
   object StringGrid1: TStringGrid
     Left = 0
@@ -81,23 +81,23 @@ object LGSSolver: TLGSSolver
     end
     object Label1: TLabel
       Left = 0
-      Height = 25
+      Height = 16
       Top = 0
-      Width = 46
+      Width = 38
       Caption = 'Zeilen'
       ParentColor = False
     end
     object Label2: TLabel
       Left = 152
-      Height = 25
+      Height = 16
       Top = 0
-      Width = 59
+      Width = 46
       Caption = 'Spalten'
       ParentColor = False
     end
     object PrimEdit: TEdit
       Left = 264
-      Height = 33
+      Height = 22
       Top = 24
       Width = 80
       NumbersOnly = True
@@ -128,9 +128,9 @@ object LGSSolver: TLGSSolver
     end
     object StepBox: TCheckBox
       Left = 352
-      Height = 29
+      Height = 18
       Top = 16
-      Width = 167
+      Width = 128
       Caption = 'Schritte Anzeigen'
       TabOrder = 6
     end

@@ -18,7 +18,7 @@ type
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
-		StepBox: TCheckBox;
+    StepBox: TCheckBox;
     PrimEdit: TEdit;
     Image1: TImage;
     Label1: TLabel;
@@ -33,10 +33,10 @@ type
     procedure StringGrid1DrawCell(Sender: TObject; aCol, aRow: integer;
       aRect: TRect; aState: TGridDrawState);
   private
-procedure SortDaShit(l: TLGS);
-function CalcDaShit(r1, r2: TRow; c, k, j: cardinal; out s: String): TRow;
-procedure DoGauss(var l: TLGS; c: cardinal);
-procedure insert(l: TLGS);
+    procedure SortDaShit(l: TLGS);
+    function CalcDaShit(r1, r2: TRow; c, k, j: cardinal; out s: string): TRow;
+    procedure DoGauss(var l: TLGS; c: cardinal);
+    procedure insert(l: TLGS);
     { private declarations }
   public
     { public declarations }
@@ -52,7 +52,7 @@ implementation
 { TLGSSolver }
 procedure TLGSSolver.insert(l: TLGS);
 var
-		y, x: Integer;
+  y, x: integer;
 begin
 
   StringGrid1.RowCount := l.M;
@@ -120,7 +120,7 @@ begin
   QuickSort(l.Rows, low(l.Rows), High(l.Rows));
 end;
 
-function TLGSSolver.CalcDaShit(r1, r2: TRow; c, k, j: cardinal; out s: String): TRow;
+function TLGSSolver.CalcDaShit(r1, r2: TRow; c, k, j: cardinal; out s: string): TRow;
 var
   f1, f2, i: integer;
 begin
@@ -131,33 +131,40 @@ begin
   if (f1 = c) or (f2 = c) then
     exit;
   SetLength(Result.Colums, Length(r1.Colums));
-  Result.Leading0 := r1.Leading0 + 1;
   for i := 0 to Length(r1.Colums) - 1 do
     Result.Colums[i] := ModDaShit((r1.Colums[i] * f2 - r2.Colums[i] * f1), c);
-        if StepBox.Checked then
-          s:=Format('Reihe %d wird zu Reihe %d * %d - Reihe %d * %d', [j, k, f2, j, f1]);
+  Result.Leading0:=0;
+  for i:=0 to Length(r1.Colums) - 1 do
+    if Result.Colums[i] = 0 then
+      inc(Result.Leading0)
+    else
+      break;
+	if StepBox.Checked then
+    s := Format('Reihe %d wird zu Reihe %d * %d - Reihe %d * %d', [j, k, f2, j, f1]);
 end;
 
 procedure TLGSSolver.DoGauss(var l: TLGS; c: cardinal);
 var
   i, j: integer;
-  s: String;
+  s: string;
 begin
   SortDaShit(l);
+  if StepBox.Checked then
+    StepView.AddStep(l, 'Umsortiert');
   for i := 0 to l.M - 1 do
   begin
     for j := i + 1 to l.M - 1 do
       if l.Rows[i].Leading0 = l.Rows[j].Leading0 then
       begin
         l.Rows[j] := CalcDaShit(l.Rows[i], l.Rows[j], c, i, j, s);
-        if StepBox.Checked then
+        if StepBox.Checked and (s<>'') then
           StepView.AddStep(l, s);
       end
       else
         break;
     SortDaShit(l);
-        if StepBox.Checked then
-          StepView.AddStep(l, 'Umsortiert');
+    if StepBox.Checked then
+      StepView.AddStep(l, 'Umsortiert');
   end;
 end;
 
@@ -183,7 +190,7 @@ var
   nonz: boolean;
 begin
   StepView.ClearSteps;
-  StepView.OnInsert:=@insert;
+  StepView.OnInsert := @insert;
   for x := 0 to StringGrid1.ColCount - 1 do
     for y := 0 to StringGrid1.RowCount - 1 do
       if not isNumeric(StringGrid1.Cells[x, y]) then
@@ -216,12 +223,11 @@ begin
   for y := 0 to l.M - 1 do
     for x := 0 to l.N - 1 do
       StringGrid1.Cells[x, y] := IntToStr(l.Rows[y].Colums[x]);
-
-        if StepBox.Checked then
-        begin
-          StepView.ShowStep(0);
-        StepView.ShowModal;
-				end;
+  if StepBox.Checked then
+  begin
+    StepView.ShowStep(0);
+    StepView.ShowModal;
+  end;
 
 end;
 
